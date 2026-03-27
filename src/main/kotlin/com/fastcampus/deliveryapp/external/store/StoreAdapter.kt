@@ -6,6 +6,8 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
+import org.springframework.web.client.getForEntity
+import org.springframework.web.client.getForObject
 
 @Component
 class StoreAdapter(
@@ -27,9 +29,14 @@ class StoreAdapter(
 
     override fun list(categoryId: Long, reviewGradeFilterValue: Int): List<CategoryStore> {
         val categoryStoreFullPath = "$deliveryApiUrl$categoryStorePath?categoryId=$categoryId&reviewGradeFilterValue=$reviewGradeFilterValue"
-
         logger.info { ">>> list, $categoryStoreFullPath, categoryId = $categoryId" }
-        val responseEntity = restTemplate.getForEntity(categoryStoreFullPath, CategoryStoreResponse::class.java)
+        val responseEntity = restTemplate.getForEntity<CategoryStoreResponse>(categoryStoreFullPath)
         return responseEntity.body?.categoryStores ?: emptyList()
+    }
+
+    override fun detail(storeId: Long): StoreDetailPageResponse? {
+        val storeDetailFullPath = "$deliveryApiUrl$storeDetailPath?storeId=$storeId"
+        logger.info { ">>> detail, $storeDetailFullPath, storeId = $storeId" }
+        return restTemplate.getForObject<StoreDetailPageResponse>(storeDetailFullPath)
     }
 }
