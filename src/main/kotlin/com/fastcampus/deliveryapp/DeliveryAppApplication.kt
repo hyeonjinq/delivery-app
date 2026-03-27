@@ -1,4 +1,4 @@
-package com.fastcampus.delivery_app
+package com.fastcampus.deliveryapp
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
