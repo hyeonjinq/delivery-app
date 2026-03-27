@@ -1,4 +1,4 @@
-package com.fastcampus.delivery_app
+package com.fastcampus.deliveryapp
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
